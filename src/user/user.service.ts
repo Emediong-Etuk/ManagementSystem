@@ -24,6 +24,7 @@ export class UserService {
       password:hashedPassword,
       ...rest
     })
+    // const getUser=this.userRepo.findOne({where:{email:email},relations:{todo:true}})
     delete userDetails.password;
     const userpayload={id:userDetails.id,email:userDetails.email}
     return{
@@ -38,7 +39,7 @@ export class UserService {
     }
     return mail;
   }
-
+  // signin the user 
   async signIn(payload:LoginDto, @Req()req:Request,@Res() res:Response){
     const {email,password}=payload
     const user=await this.userRepo.findOneBy({email})
@@ -65,7 +66,7 @@ export class UserService {
       userToken:token
     })
   }
-
+  // logout the user 
   async logout(@Req()req:Request, @Res()res:Response){
     const clearCookie=res.clearCookie('isAuthenticated');
     const response=res.send('user successfully logout');
@@ -87,7 +88,7 @@ export class UserService {
     }
   }
 
-  async user(headers:any):Promise<any>{//you can headers:any or headers:Request['headers'] in your parameter, it still returns type HTTP header, only that the latter will enable headers.authorization to be suggested by vscode
+  async user(headers:any):Promise<any>{//you can use headers:any or headers:Request['headers'] in your parameter, it still returns type HTTP header, only that the latter will enable headers.authorization to be suggested by vscode
     const authorizationHeader= headers.authorization;
     if(authorizationHeader){
       const token= authorizationHeader.replace('Bearer ','')
