@@ -8,8 +8,8 @@ const configService= new ConfigService()
 
 export const dataSourceOptions: DataSourceOptions=({
     type:'mysql',
-    host:configService.get<string>('HOST'),
-    port:configService.get<number>('PORT'),
+    host:configService.get('HOST'),
+    port:configService.get('PORT'),
     username:configService.get('DB_USER'),
     password:configService.get('DB_PASSWORD'),
     database:configService.get<string>('DB_NAME'),
