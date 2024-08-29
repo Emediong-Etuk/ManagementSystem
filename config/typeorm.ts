@@ -8,11 +8,11 @@ const configService= new ConfigService()
 
 export const dataSourceOptions: DataSourceOptions=({
     type:'mysql',
-    host:configService.getOrThrow('HOST'),
-    port:configService.getOrThrow('PORT'),
-    username:configService.getOrThrow('USERNAME'),
-    password:configService.getOrThrow('PASSWORD'),
-    database:configService.getOrThrow('DATABASE'),
+    host:configService.get<string>('HOST'),
+    port:configService.get<number>('PORT'),
+    username:configService.get('DB_USER'),
+    password:configService.get('DB_PASSWORD'),
+    database:configService.get<string>('DB_NAME'),
     entities:['dist/**/*.entity.js'],
     migrations:['dist/config/migrations/*.js'],
     synchronize:false
