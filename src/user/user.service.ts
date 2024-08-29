@@ -55,6 +55,8 @@ export class UserService {
       email:user.email,
       id:user.id
     })
+    
+   
 
     res.cookie('isAuthenticated',token,{
       httpOnly:true,
@@ -87,15 +89,17 @@ export class UserService {
       return false;
     }
   }
-
+  //This function gets the user from the authorization header
   async user(headers:any):Promise<any>{//you can use headers:any or headers:Request['headers'] in your parameter, it still returns type HTTP header, only that the latter will enable headers.authorization to be suggested by vscode
     const authorizationHeader= headers.authorization;
     if(authorizationHeader){
       const token= authorizationHeader.replace('Bearer ','')
+
       const secret=process.env.JWTSECRET;
       try{
         const decoded=this.jwtService.verifyAsync(token);
         let id=decoded['id'];
+        console.log(id)
         let user=await this.userRepo.findOneBy({id})
         return { id:id, name:user.name,email:user.email,role:user.role}
 
